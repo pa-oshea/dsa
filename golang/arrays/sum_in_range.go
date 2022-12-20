@@ -1,4 +1,4 @@
-package main
+package arrays
 
 func sum(n int) int {
 	return (n * (n + 1)) / 2
