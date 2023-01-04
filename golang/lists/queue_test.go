@@ -1,4 +1,4 @@
-package main
+package lists
 
 import (
 	"testing"
@@ -21,7 +21,7 @@ func TestQueue(t *testing.T) {
 	assert.Equal(t, queue.dequeue(), 9)
 	assert.Equal(t, queue.peek(), 11)
 	assert.Equal(t, queue.dequeue(), 11)
-	assert.Equal(t, queue.dequeue(), -1)
+	assert.Equal(t, queue.dequeue(), nil)
 	assert.Equal(t, queue.length, 0)
 
 	queue.enqueue(69)

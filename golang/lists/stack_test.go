@@ -1,4 +1,4 @@
-package main
+package lists
 
 import (
 	"testing"
@@ -21,7 +21,7 @@ func TestStack(t *testing.T) {
 	assert.Equal(t, stack.pop(), 7)
 	assert.Equal(t, stack.peek(), 5)
 	assert.Equal(t, stack.pop(), 5)
-	assert.Equal(t, stack.pop(), -1)
+	assert.Equal(t, stack.pop(), nil)
 
 	stack.push(69)
 	assert.Equal(t, stack.peek(), 69)

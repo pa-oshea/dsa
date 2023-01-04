@@ -1,11 +1,11 @@
-package main
+package lists
 
 type stack struct {
 	length int
 	top   *node
 }
 
-func (s *stack) push(item int) {
+func (s *stack) push(item any) {
 	s.length++
 	node := &node{data: item}
 	if s.top == nil {
@@ -16,7 +16,7 @@ func (s *stack) push(item int) {
 	s.top = node
 }
 
-func (s *stack) pop() int {
+func (s *stack) pop() any {
 	if s.length != 0 {
 
 		s.length--
@@ -24,10 +24,9 @@ func (s *stack) pop() int {
 		s.top = s.top.next
 		return result
 	}
-	// should be err maybe
-	return -1
+	return nil
 }
 
-func (s *stack) peek() int {
+func (s *stack) peek() any {
 	return s.top.data
 }

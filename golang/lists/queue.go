@@ -1,11 +1,11 @@
-package main
+package lists
 
 type queue struct {
 	length      int
 	first, last *node
 }
 
-func (q *queue) enqueue(item int) {
+func (q *queue) enqueue(item any) {
 	node := &node{data: item}
 	q.length++
 	if q.last == nil {
@@ -20,9 +20,9 @@ func (q *queue) enqueue(item int) {
 
 }
 
-func (q *queue) dequeue() int {
+func (q *queue) dequeue() any {
 	if q.first == nil {
-		return -1
+		return nil
 	}
 
 	result := q.first.data
@@ -35,6 +35,6 @@ func (q *queue) dequeue() int {
 	return result
 }
 
-func (q *queue) peek() int {
+func (q *queue) peek() any {
 	return q.first.data
 }
