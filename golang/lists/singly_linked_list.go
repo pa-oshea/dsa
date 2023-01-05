@@ -41,7 +41,7 @@ func (s *singlyLinkedList) insertAt(item any, idx int) {
 	}
 
 	current := s.head
-	for current != nil && idx > 0 {
+	for current != nil && idx > 1 {
 		current = current.next
 		idx--
 	}
@@ -110,17 +110,29 @@ func (s *singlyLinkedList) get(idx int) any {
 }
 
 func (s *singlyLinkedList) remove(item any) any {
+	if s.head.data == item {
+		result := s.head.data
+		s.head = s.head.next
+		s.length--
+		return result
+	}
+
 	current := s.head
-	for current != nil {
-		if current.data == item {
-			head := s.head
-			result := head.data
-			s.head = head
+	for current.next != nil {
+		if current.next.data == item {
+			if current.next == s.tail {
+				result := s.tail.data
+				s.tail = current
+				s.length--
+				return result
+			}
 
-			head.next = nil
-
+			result := current.next.data
+			current.next = current.next.next
+			s.length--
 			return result
 		}
+		current = current.next
 	}
 
 	return nil
