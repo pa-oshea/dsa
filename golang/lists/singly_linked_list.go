@@ -98,12 +98,24 @@ func (s *singlyLinkedList) removeAt(index int) any {
 }
 
 func (s *singlyLinkedList) get(idx int) any {
+	if idx > s.length {
+		return nil
+	} else if idx == 0 {
+		return s.head.data
+	} else if idx == s.length-1 {
+		return s.tail.data
+	}
+
 	current := s.head
 
 	for current != nil && idx > 0 {
 		current = current.next
 		idx--
 
+	}
+
+	if current == nil {
+		return nil
 	}
 
 	return current.data
