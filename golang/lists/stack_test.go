@@ -8,23 +8,27 @@ import (
 
 func TestStack(t *testing.T) {
 
-	stack := stack{}
+	stack := stack[int]{}
 	stack.push(5)
 	stack.push(7)
 	stack.push(9)
 
-	assert.Equal(t, stack.pop(), 9)
+	ans, _ := stack.pop()
+	assert.Equal(t, ans, 9)
 	assert.Equal(t, stack.length, 2)
 
 	stack.push(11)
-	assert.Equal(t, stack.pop(), 11)
-	assert.Equal(t, stack.pop(), 7)
+	ans, _ = stack.pop()
+	assert.Equal(t, ans, 11)
+	ans, _ = stack.pop()
+	assert.Equal(t, ans, 7)
 	assert.Equal(t, stack.peek(), 5)
-	assert.Equal(t, stack.pop(), 5)
-	assert.Equal(t, stack.pop(), nil)
+	ans, _ = stack.pop()
+	assert.Equal(t, ans, 5)
+	_, err := stack.pop()
+	assert.Equal(t, err, "no item found")
 
 	stack.push(69)
 	assert.Equal(t, stack.peek(), 69)
 	assert.Equal(t, stack.length, 1)
 }
-

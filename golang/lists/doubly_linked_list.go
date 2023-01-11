@@ -1,57 +1,64 @@
 package lists
 
-type doublyLinkedList struct {
+import (
+	"errors"
+
+	"github.com/pa-oshea/dsa/common"
+)
+
+type doublyLinkedList[T any] struct {
 	length     int
-	head, tail *node
+	head, tail *common.Node[T]
 }
 
-func (d *doublyLinkedList) prepend(item any) {
-	node := &node{data: item}
+func (d *doublyLinkedList[T]) prepend(item T) {
+	node := &common.Node[T]{Data: item}
 	if d.length == 0 {
 		d.tail = node
 	} else {
-		d.head.prev = node
-		node.next = d.head
+		d.head.Prev = node
+		node.Next = d.head
 	}
 
 	d.head = node
 	d.length++
 }
 
-func (d *doublyLinkedList) append(item any) {
-	node := &node{data: item}
+func (d *doublyLinkedList[T]) append(item T) {
+	node := &common.Node[T]{Data: item}
 	if d.length == 0 {
 		d.head = node
 	} else {
-		d.tail.next = node
-		node.prev = d.tail
+		d.tail.Next = node
+		node.Prev = d.tail
 	}
 
 	d.tail = node
 	d.length++
 }
 
-func (d *doublyLinkedList) get(idx int) any {
+func (d *doublyLinkedList[T]) get(idx int) (T, error) {
 	if idx >= d.length {
 		// throw some error
-		return nil
+		var result T
+		return result, errors.New("index out of bounds")
 	} else if idx == 0 {
-		return d.head.data
+		return d.head.Data, nil
 	} else if idx == d.length-1 {
-		return d.tail.data
+		return d.tail.Data, nil
 	}
 
 	curr := d.head
 	for curr != nil && idx > 0 {
-		curr = curr.next
+		curr = curr.Next
 		idx--
 	}
 
-	return curr.data
+	return curr.Data, nil
 
 }
 
-func (d *doublyLinkedList) insertAt(item any, idx int) {
+func (d *doublyLinkedList[T]) insertAt(item T, idx int) {
 	if idx >= d.length {
 		// throw some error
 		return
@@ -63,52 +70,53 @@ func (d *doublyLinkedList) insertAt(item any, idx int) {
 
 	curr := d.head
 	for curr != nil && idx > 0 {
-		curr = curr.next
+		curr = curr.Next
 		idx--
 	}
 
-	node := &node{data: item, prev: curr.prev, next: curr}
-	node.prev.next = node
-	curr.prev = node
+	node := &common.Node[T]{Data: item, Prev: curr.Prev, Next: curr}
+	node.Prev.Next = node
+	curr.Prev = node
 	d.length++
 }
 
-func (d *doublyLinkedList) remove(idx int) any {
+func (d *doublyLinkedList[T]) remove(idx int) (T, error) {
 	if idx >= d.length {
 		// throw some error
-		return nil
+		var result T
+		return result, errors.New("index out of bounds")
 	}
 
 	d.length--
 	if d.length == 0 {
-		result := d.head.data
+		result := d.head.Data
 		d.head = nil
 		d.tail = nil
-		return result
+		return result, nil
 	}
 
 	if idx == 0 {
-		result := d.head.data
-		d.head = d.head.next
-		return result
+		result := d.head.Data
+		d.head = d.head.Next
+		return result, nil
 	} else if idx == d.length-1 {
-		result := d.tail.data
-		d.tail = d.tail.prev
-		return result
+		result := d.tail.Data
+		d.tail = d.tail.Prev
+		return result, nil
 	}
 
 	curr := d.head
 
 	for curr != nil && idx > 0 {
-		curr = curr.next
+		curr = curr.Next
 		idx--
 	}
 
-	result := curr.data
-	curr.prev.next = curr.next
-	curr.next.prev = curr.prev
-	curr.next = nil
-	curr.prev = nil
+	result := curr.Data
+	curr.Prev.Next = curr.Next
+	curr.Next.Prev = curr.Prev
+	curr.Next = nil
+	curr.Prev = nil
 
-	return result
+	return result, nil
 }

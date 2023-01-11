@@ -1,40 +1,48 @@
 package lists
 
-type queue struct {
-	length      int
-	first, last *node
+import (
+	"errors"
+
+	"github.com/pa-oshea/dsa/common"
+)
+
+type Queue[T any] struct {
+	Length      int
+	first, last *common.Node[T]
 }
 
-func (q *queue) enqueue(item any) {
-	node := &node{data: item}
-	q.length++
+func (q *Queue[T]) Enqueue(item T) {
+	node := &common.Node[T]{Data: item}
+
+	q.Length++
 	if q.last == nil {
 		q.last = node
-		q.last.next = node
+		q.last.Next = node
 		q.first = q.last
 		return
 	}
 
-	q.last.next = node
+	q.last.Next = node
 	q.last = node
 
 }
 
-func (q *queue) dequeue() any {
+func (q *Queue[T]) Dequeue() (T, error) {
 	if q.first == nil {
-		return nil
+		var result T
+		return result, errors.New("first node is nil")
 	}
 
-	result := q.first.data
-	q.first = q.first.next
-	q.length--
-	if q.length == 0 {
+	result := q.first.Data
+	q.first = q.first.Next
+	q.Length--
+	if q.Length == 0 {
 		q.last = nil
 	}
 
-	return result
+	return result, nil
 }
 
-func (q *queue) peek() any {
-	return q.first.data
+func (q *Queue[T]) Peek() T {
+	return q.first.Data
 }

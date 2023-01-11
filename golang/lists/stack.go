@@ -1,32 +1,39 @@
 package lists
 
-type stack struct {
+import (
+	"errors"
+
+	"github.com/pa-oshea/dsa/common"
+)
+
+type stack[T any] struct {
 	length int
-	top   *node
+	top   *common.Node[T]
 }
 
-func (s *stack) push(item any) {
+func (s *stack[T]) push(item T) {
 	s.length++
-	node := &node{data: item}
+	node := &common.Node[T]{Data: item}
 	if s.top == nil {
 		s.top = node
 		return
 	}
-	node.next = s.top
+	node.Next = s.top
 	s.top = node
 }
 
-func (s *stack) pop() any {
+func (s *stack[T]) pop() ( T, error ) {
 	if s.length != 0 {
 
 		s.length--
-		result := s.top.data
-		s.top = s.top.next
-		return result
+		result := s.top.Data
+		s.top = s.top.Next
+		return result, nil
 	}
-	return nil
+	var result T
+	return result, errors.New("no item found")
 }
 
-func (s *stack) peek() any {
-	return s.top.data
+func (s *stack[T]) peek() T {
+	return s.top.Data
 }

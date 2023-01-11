@@ -1,5 +1,21 @@
 package common
 
+type Node[T any] struct {
+	Data T
+	Next *Node[T]
+	Prev *Node[T]
+}
+
+type Binary_node struct {
+	value       int
+	left, right *Binary_node
+}
+
+type General_node struct {
+	value    int
+	children *[]General_node
+}
+
 /*
 Remove element from slice keeping the original order
 @param slice: slice to remove element from

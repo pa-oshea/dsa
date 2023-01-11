@@ -8,24 +8,30 @@ import (
 
 func TestQueue(t *testing.T) {
 
-	queue := queue{}
-	queue.enqueue(5)
-	queue.enqueue(7)
-	queue.enqueue(9)
+	queue := Queue[int]{}
+	queue.Enqueue(5)
+	queue.Enqueue(7)
+	queue.Enqueue(9)
 
-	assert.Equal(t, queue.dequeue(), 5)
-	assert.Equal(t, queue.length, 2)
+	ans, _ := queue.Dequeue()
+	assert.Equal(t, ans, 5)
+	assert.Equal(t, queue.Length, 2)
 
-	queue.enqueue(11)
-	assert.Equal(t, queue.dequeue(), 7)
-	assert.Equal(t, queue.dequeue(), 9)
-	assert.Equal(t, queue.peek(), 11)
-	assert.Equal(t, queue.dequeue(), 11)
-	assert.Equal(t, queue.dequeue(), nil)
-	assert.Equal(t, queue.length, 0)
+	queue.Enqueue(11)
+	ans, _ = queue.Dequeue()
+	assert.Equal(t, ans, 7)
+	ans, _ = queue.Dequeue()
+	assert.Equal(t, ans, 9)
+	assert.Equal(t, queue.Peek(), 11)
+	ans, _ = queue.Dequeue()
+	assert.Equal(t, ans, 11)
+	ans, err := queue.Dequeue()
+	assert.Equal(t, err, "First node is nil")
+	assert.Equal(t, ans, nil)
+	assert.Equal(t, queue.Length, 0)
 
-	queue.enqueue(69)
-	assert.Equal(t, queue.peek(), 69)
-	assert.Equal(t, queue.length, 1)
+	queue.Enqueue(69)
+	assert.Equal(t, queue.Peek(), 69)
+	assert.Equal(t, queue.Length, 1)
 
 }

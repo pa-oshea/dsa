@@ -1,27 +1,33 @@
 package lists
 
-type singlyLinkedList struct {
+import (
+	"errors"
+
+	"github.com/pa-oshea/dsa/common"
+)
+
+type singlyLinkedList[T any] struct {
 	length     int
-	head, tail *node
+	head, tail *common.Node[T]
 }
 
-func (s *singlyLinkedList) prepend(item any) {
-	node := &node{data: item}
+func (s *singlyLinkedList[T]) prepend(item T) {
+	node := &common.Node[T]{Data: item}
 	if s.length == 0 {
 		s.tail = node
 	} else {
-		node.next = s.head
+		node.Next = s.head
 	}
 	s.head = node
 	s.length++
 }
 
-func (s *singlyLinkedList) append(item any) {
-	node := &node{data: item}
+func (s *singlyLinkedList[T]) append(item T) {
+	node := &common.Node[T]{Data: item}
 	if s.length == 0 {
 		s.head = node
 	} else {
-		s.tail.next = node
+		s.tail.Next = node
 	}
 
 	s.tail = node
@@ -29,7 +35,7 @@ func (s *singlyLinkedList) append(item any) {
 
 }
 
-func (s *singlyLinkedList) insertAt(item any, idx int) {
+func (s *singlyLinkedList[T]) insertAt(item T, idx int) {
 	if s.length <= idx {
 		s.append(item)
 		return
@@ -42,110 +48,112 @@ func (s *singlyLinkedList) insertAt(item any, idx int) {
 
 	current := s.head
 	for current != nil && idx > 1 {
-		current = current.next
+		current = current.Next
 		idx--
 	}
 
 	if current != nil {
-		node := &node{data: item, next: current.next}
-		current.next = node
+		node := &common.Node[T]{Data: item, Next: current.Next}
+		current.Next = node
 		s.length++
 	}
 }
 
-func (s *singlyLinkedList) removeAt(index int) any {
-	// check if the index is out of bounds
-	if index >= s.length {
-		print("index out of bounds")
-		return nil
+func (s *singlyLinkedList[T]) remove(idx int) (T, error) {
+	
+	if idx >= s.length {
+		// throw some error
+		var result T
+		return result, errors.New("index out of bounds")
 	}
 
-	// If there is only 1 node in the list, set head and tail to nil
-	if s.length == 1 {
-		result := s.head.data
+	s.length--
+	if s.length == 0 {
+		result := s.head.Data
 		s.head = nil
 		s.tail = nil
-		s.length = 0
-		return result
+		return result, nil
 	}
 
-	// If the index is 0, then set the head to the next node
-	if index == 0 {
-		head := s.head
-		s.head = head.next
-		s.length--
-		return head.data
+	if idx == 0 {
+		result := s.head.Data
+		s.head = s.head.Next
+		return result, nil
+	} else if idx == s.length-1 {
+		result := s.tail.Data
+		s.tail = s.tail.Prev
+		return result, nil
 	}
 
-	current := s.head
-	for current != nil && index > 0 {
-		current = current.next
-		index--
+	curr := s.head
+
+	for curr != nil && idx > 0 {
+		curr = curr.Next
+		idx--
 	}
 
-	if current != nil {
-		nextNode := current.next
-		result := nextNode.data
-		current.next = nextNode.next
-		nextNode.next = nil
+	result := curr.Data
+	curr.Prev.Next = curr.Next
+	curr.Next.Prev = curr.Prev
+	curr.Next = nil
+	curr.Prev = nil
 
-		if index == s.length-1 {
-			s.tail = current
-		}
-		return result
-	}
-	return nil
+	return result, nil
+
 }
 
-func (s *singlyLinkedList) get(idx int) any {
+func (s *singlyLinkedList[T]) get(idx int) (T, error) {
 	if idx > s.length {
-		return nil
+		var result T
+		return result, errors.New("index out of bounds")
 	} else if idx == 0 {
-		return s.head.data
+		return s.head.Data, nil
 	} else if idx == s.length-1 {
-		return s.tail.data
+		return s.tail.Data, nil
 	}
 
 	current := s.head
 
 	for current != nil && idx > 0 {
-		current = current.next
+		current = current.Next
 		idx--
 
 	}
 
 	if current == nil {
-		return nil
+		var result T
+		return result, errors.New("item not found")
 	}
 
-	return current.data
+	return current.Data, nil
 }
 
-func (s *singlyLinkedList) remove(item any) any {
-	if s.head.data == item {
-		result := s.head.data
-		s.head = s.head.next
-		s.length--
-		return result
-	}
-
-	current := s.head
-	for current.next != nil {
-		if current.next.data == item {
-			if current.next == s.tail {
-				result := s.tail.data
-				s.tail = current
-				s.length--
-				return result
-			}
-
-			result := current.next.data
-			current.next = current.next.next
-			s.length--
-			return result
-		}
-		current = current.next
-	}
-
-	return nil
-}
+// This is stupid
+// func (s *singlyLinkedList) remove(item any) any {
+// 	if s.head.data == item {
+// 		result := s.head.data
+// 		s.head = s.head.next
+// 		s.length--
+// 		return result
+// 	}
+//
+// 	current := s.head
+// 	for current.next != nil {
+// 		if current.next.data == item {
+// 			if current.next == s.tail {
+// 				result := s.tail.data
+// 				s.tail = current
+// 				s.length--
+// 				return result
+// 			}
+//
+// 			result := current.next.data
+// 			current.next = current.next.next
+// 			s.length--
+// 			return result
+// 		}
+// 		current = current.next
+// 	}
+//
+// 	return nil
+// }
