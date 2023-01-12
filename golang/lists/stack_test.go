@@ -1,6 +1,7 @@
 package lists
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -26,7 +27,7 @@ func TestStack(t *testing.T) {
 	ans, _ = stack.pop()
 	assert.Equal(t, ans, 5)
 	_, err := stack.pop()
-	assert.Equal(t, err, "no item found")
+	assert.Equal(t, err, errors.New("no item found"))
 
 	stack.push(69)
 	assert.Equal(t, stack.peek(), 69)

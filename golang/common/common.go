@@ -6,14 +6,14 @@ type Node[T any] struct {
 	Prev *Node[T]
 }
 
-type Binary_node struct {
-	value       int
-	left, right *Binary_node
+type Binary_node[T any] struct {
+	Value       T
+	Left, Right *Binary_node[T]
 }
 
 type General_node struct {
-	value    int
-	children *[]General_node
+	Value    int
+	Children *[]General_node
 }
 
 /*

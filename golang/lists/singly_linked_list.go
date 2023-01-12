@@ -79,24 +79,16 @@ func (s *singlyLinkedList[T]) remove(idx int) (T, error) {
 		result := s.head.Data
 		s.head = s.head.Next
 		return result, nil
-	} else if idx == s.length-1 {
-		result := s.tail.Data
-		s.tail = s.tail.Prev
-		return result, nil
-	}
-
+	} 
 	curr := s.head
 
-	for curr != nil && idx > 0 {
+	for curr != nil && idx > 1 {
 		curr = curr.Next
 		idx--
 	}
 
-	result := curr.Data
-	curr.Prev.Next = curr.Next
-	curr.Next.Prev = curr.Prev
-	curr.Next = nil
-	curr.Prev = nil
+	result := curr.Next.Data
+	curr.Next = curr.Next.Next
 
 	return result, nil
 

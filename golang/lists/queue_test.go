@@ -1,6 +1,7 @@
 package lists
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -26,8 +27,8 @@ func TestQueue(t *testing.T) {
 	ans, _ = queue.Dequeue()
 	assert.Equal(t, ans, 11)
 	ans, err := queue.Dequeue()
-	assert.Equal(t, err, "First node is nil")
-	assert.Equal(t, ans, nil)
+	assert.Equal(t, err, errors.New("first node is nil"))
+	assert.Equal(t, ans, 0)
 	assert.Equal(t, queue.Length, 0)
 
 	queue.Enqueue(69)
