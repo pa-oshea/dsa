@@ -23,7 +23,7 @@ func TestSinglyLinkedList(t *testing.T) {
 	assert.Equal(t, 1, list.length)
 
 	ans, _ = list.remove(0)
-	assert.Equal(t, ans, 7)
+	assert.Equal(t, 7, ans)
 
 	// add 5 , 7 back
 	list.append(5)
@@ -31,26 +31,26 @@ func TestSinglyLinkedList(t *testing.T) {
 	list.append(6)
 
 	ans, _ = list.get(0)
-	assert.Equal(t, ans, 5)
+	assert.Equal(t, 5, ans)
 	ans, _ = list.get(1)
-	assert.Equal(t, ans, 7)
+	assert.Equal(t, 7, ans)
 	ans, _ = list.get(2)
-	assert.Equal(t, ans, 6)
+	assert.Equal(t, 6, ans)
 
 	list.insertAt(9, 1)
 
 	ans, _ = list.get(1)
-	assert.Equal(t, ans, 9)
+	assert.Equal(t, 9, ans)
 
 	ans, _ = list.remove(1)
-	assert.Equal(t, ans, 9)
+	assert.Equal(t, 9, ans)
 
 	ans, _ = list.get(0)
-	assert.Equal(t, ans, 5)
+	assert.Equal(t, 5, ans)
 	ans, _ = list.get(1)
-	assert.Equal(t, ans, 7)
+	assert.Equal(t, 7, ans)
 	ans, _ = list.get(2)
-	assert.Equal(t, ans, 6)
+	assert.Equal(t, 6, ans)
 }
 
 func Test_DoublyLinkedList(t *testing.T) {
@@ -62,7 +62,7 @@ func Test_DoublyLinkedList(t *testing.T) {
 
 	// remove 5
 	ans, _ := list.remove(0)
-	assert.Equal(t, ans, 5)
+	assert.Equal(t, 5, ans)
 
 	list.append(7)
 	assert.Equal(t, 7, list.head.Data)
@@ -70,7 +70,7 @@ func Test_DoublyLinkedList(t *testing.T) {
 	assert.Equal(t, 1, list.length)
 
 	ans, _ = list.remove(0)
-	assert.Equal(t, ans, 7)
+	assert.Equal(t, 7, ans)
 
 	// add 5 , 7 back
 	list.append(5)
@@ -78,25 +78,25 @@ func Test_DoublyLinkedList(t *testing.T) {
 	list.append(6)
 
 	ans, _ = list.get(0)
-	assert.Equal(t, ans, 5)
+	assert.Equal(t, 5, ans)
 	ans, _ = list.get(1)
-	assert.Equal(t, ans, 7)
+	assert.Equal(t, 7, ans)
 	ans, _ = list.get(2)
-	assert.Equal(t, ans, 6)
+	assert.Equal(t, 6, ans)
 
 	list.insertAt(9, 1)
 
 	ans, _ = list.get(1)
-	assert.Equal(t, ans, 9)
+	assert.Equal(t, 9, ans)
 
 	ans, _ = list.remove(1)
-	assert.Equal(t, ans, 9)
+	assert.Equal(t, 9, ans)
 
 	ans, _ = list.get(0)
-	assert.Equal(t, ans, 5)
+	assert.Equal(t, 5, ans)
 	ans, _ = list.get(1)
-	assert.Equal(t, ans, 7)
+	assert.Equal(t, 7, ans)
 	ans, _ = list.get(2)
-	assert.Equal(t, ans, 6)
+	assert.Equal(t, 6, ans)
 
 }

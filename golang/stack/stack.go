@@ -37,3 +37,4 @@ func (s *stack[T]) pop() ( T, error ) {
 func (s *stack[T]) peek() T {
 	return s.top.Data
 }
+

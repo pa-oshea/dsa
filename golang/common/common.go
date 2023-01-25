@@ -1,9 +1,8 @@
 package common
 
 type Node[T any] struct {
-	Data T
-	Next *Node[T]
-	Prev *Node[T]
+	Data       T
+	Next, Prev *Node[T]
 }
 
 type Binary_node[T any] struct {

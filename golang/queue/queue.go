@@ -1,4 +1,4 @@
-package lists
+package queue
 
 import (
 	"errors"
@@ -24,7 +24,6 @@ func (q *Queue[T]) Enqueue(item T) {
 
 	q.last.Next = node
 	q.last = node
-
 }
 
 func (q *Queue[T]) Dequeue() (T, error) {

@@ -39,3 +39,12 @@ func TestHouseRobber(t *testing.T) {
 	assert.Equal(t, 10, houseRobber([]int{3, 1, 2, 5, 4, 2}))
 	assert.Equal(t, 10, houseRobberAlt([]int{3, 1, 2, 5, 4, 2}))
 }
+
+func Test_MaxSlidingWindow(t *testing.T) {
+	expected := []int{3, 3, 5, 5, 6, 7}
+	input := []int{1, 3, -1, -3, 5, 3, 6, 7}
+	assert.Equal(t, expected, maxSlidingWindow(input, 3))
+	expected = []int{1,-1}
+	input = []int{1,-1}
+	assert.Equal(t, expected, maxSlidingWindow(input, 1))
+}

@@ -151,3 +151,21 @@ func houseRobberAlt(arr []int) int {
 	}
 	return currentMax
 }
+
+func maxSlidingWindow(nums []int, k int) []int {
+	result := make([]int, len(nums)-k+1)
+	for i, j := 0, k-1; i < len(nums)-k+1; i++ {
+		for idx,l := i,0; l<k; l++ {
+			if l == 0 {
+				result[i] = nums[idx]
+			}
+			if result[i] < nums[idx] {
+				result[i] = nums[idx]
+			}
+			idx++
+		}
+		j++
+	}
+
+	return result
+}
