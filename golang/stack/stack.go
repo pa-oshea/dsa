@@ -8,7 +8,7 @@ import (
 
 type stack[T any] struct {
 	length int
-	top   *common.Node[T]
+	top    *common.Node[T]
 }
 
 func (s *stack[T]) push(item T) {
@@ -22,9 +22,8 @@ func (s *stack[T]) push(item T) {
 	s.top = node
 }
 
-func (s *stack[T]) pop() ( T, error ) {
+func (s *stack[T]) pop() (T, error) {
 	if s.length != 0 {
-
 		s.length--
 		result := s.top.Data
 		s.top = s.top.Next
@@ -37,4 +36,3 @@ func (s *stack[T]) pop() ( T, error ) {
 func (s *stack[T]) peek() T {
 	return s.top.Data
 }
-

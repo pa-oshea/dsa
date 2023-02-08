@@ -32,7 +32,6 @@ func (s *singlyLinkedList[T]) append(item T) {
 
 	s.tail = node
 	s.length++
-
 }
 
 func (s *singlyLinkedList[T]) insertAt(item T, idx int) {
@@ -60,7 +59,6 @@ func (s *singlyLinkedList[T]) insertAt(item T, idx int) {
 }
 
 func (s *singlyLinkedList[T]) remove(idx int) (T, error) {
-	
 	if idx >= s.length {
 		// throw some error
 		var result T
@@ -79,7 +77,7 @@ func (s *singlyLinkedList[T]) remove(idx int) (T, error) {
 		result := s.head.Data
 		s.head = s.head.Next
 		return result, nil
-	} 
+	}
 	curr := s.head
 
 	for curr != nil && idx > 1 {
@@ -91,7 +89,6 @@ func (s *singlyLinkedList[T]) remove(idx int) (T, error) {
 	curr.Next = curr.Next.Next
 
 	return result, nil
-
 }
 
 func (s *singlyLinkedList[T]) get(idx int) (T, error) {
@@ -120,32 +117,37 @@ func (s *singlyLinkedList[T]) get(idx int) (T, error) {
 	return current.Data, nil
 }
 
-// This is stupid
-// func (s *singlyLinkedList) remove(item any) any {
-// 	if s.head.data == item {
-// 		result := s.head.data
-// 		s.head = s.head.next
-// 		s.length--
-// 		return result
-// 	}
-//
-// 	current := s.head
-// 	for current.next != nil {
-// 		if current.next.data == item {
-// 			if current.next == s.tail {
-// 				result := s.tail.data
-// 				s.tail = current
-// 				s.length--
-// 				return result
-// 			}
-//
-// 			result := current.next.data
-// 			current.next = current.next.next
-// 			s.length--
-// 			return result
-// 		}
-// 		current = current.next
-// 	}
-//
-// 	return nil
-// }
+func mergeTwoLists(list1, list2 *common.Node[int]) *common.Node[int] {
+	if list1 == nil {
+		return list2
+	} else if list2 == nil {
+		return list1
+	} else if list1.Data < list2.Data {
+		list1.Next = mergeTwoLists(list1.Next, list2)
+		return list1
+	}
+	list2.Next = mergeTwoLists(list1, list1.Next)
+	return list2
+}
+
+func deleteMiddle(head *common.Node[int]) *common.Node[int] {
+	length := 0
+	curr := head
+	for curr != nil {
+		curr = curr.Next
+		length++
+	}
+
+	index := length / 2
+	curr = head
+	for i := 0; i < index; i++ {
+		curr = curr.Next
+	}
+
+	if curr.Next == nil {
+		curr.Next = nil
+	} else {
+		curr.Next = curr.Next.Next
+	}
+	return head
+}

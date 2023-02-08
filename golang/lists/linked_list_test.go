@@ -98,5 +98,23 @@ func Test_DoublyLinkedList(t *testing.T) {
 	assert.Equal(t, 7, ans)
 	ans, _ = list.get(2)
 	assert.Equal(t, 6, ans)
+}
 
+func Test_Merge(t *testing.T) {
+	list1 := singlyLinkedList[int]{}
+	list2 := singlyLinkedList[int]{}
+
+	list1.append(1)
+	list1.append(2)
+	list1.append(4)
+	list2.append(1)
+	list2.append(3)
+	list2.append(4)
+	list2.append(7)
+	list2.append(1)
+	list2.append(2)
+	list2.append(6)
+
+	deleteMiddle(list2.head)
+	// mergeTwoLists(list1.head, list2.head)
 }
