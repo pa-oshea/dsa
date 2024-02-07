@@ -7,8 +7,9 @@ import (
 )
 
 type doublyLinkedList[T any] struct {
-	length     int
-	head, tail *common.Node[T]
+	head   *common.Node[T]
+	tail   *common.Node[T]
+	length int
 }
 
 func (d *doublyLinkedList[T]) prepend(item T) {
