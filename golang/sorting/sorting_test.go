@@ -6,8 +6,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var expected = []int{3, 4, 7, 9, 42, 69, 420}
-var unsorted_arr = []int{9, 3, 7, 4, 69, 420, 42}
+var (
+	expected     = []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	unsorted_arr = []int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+)
 
 func Test_SelectionSort(t *testing.T) {
 	arr := make([]int, len(unsorted_arr))
