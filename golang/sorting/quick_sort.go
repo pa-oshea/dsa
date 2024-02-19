@@ -17,18 +17,15 @@ func partition(arr []int, low, high int) int {
 	for i := low; i < high; i++ {
 		if arr[i] <= pivot {
 			idx++
-			tmp := arr[i]
-			arr[i] = arr[idx]
-			arr[idx] = tmp
+			arr[i], arr[idx] = arr[idx], arr[i]
 		}
 	}
 
 	idx++
-	arr[high] = arr[idx]
-	arr[idx] = pivot
+	arr[high], arr[idx] = arr[idx], pivot
 	return idx
-
 }
+
 func quick_sort(arr []int) []int {
 	qs(arr, 0, len(arr)-1)
 	return arr

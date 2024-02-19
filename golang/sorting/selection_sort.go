@@ -10,9 +10,7 @@ func selection_sort(arr []int) []int {
 			}
 		}
 
-		temp := arr[i]
-		arr[i] = arr[min_index]
-		arr[min_index] = temp
+		arr[i], arr[min_index] = arr[min_index], arr[i]
 	}
 	return arr
 }
