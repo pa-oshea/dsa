@@ -1,18 +1,14 @@
 package common
 
 type Node[T any] struct {
-	Data       T
+	Data T
+	// Data
+	Value T
+	// Prev
+	Left *Node[T]
+	// Next
+	Right      *Node[T]
 	Next, Prev *Node[T]
-}
-
-type Binary_node[T any] struct {
-	Value       T
-	Left, Right *Binary_node[T]
-}
-
-type General_node struct {
-	Value    int
-	Children *[]General_node
 }
 
 /*
